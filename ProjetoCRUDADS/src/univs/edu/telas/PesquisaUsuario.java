@@ -5,6 +5,7 @@
  */
 package univs.edu.telas;
 
+import javax.swing.JOptionPane;
 import univs.edu.usuario.Usuario;
 import univs.edu.usuario.UsuarioDAO;
 import univs.edu.usuario.UsuarioTableModel;
@@ -61,10 +62,20 @@ public class PesquisaUsuario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaUsuario);
 
         jButton1.setText("Voltar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Editar");
 
         jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,7 +110,29 @@ public class PesquisaUsuario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int linha = tabelaUsuario.getSelectedRow();
+        if(linha != -1){
+            int id = (int) tabelaUsuario.getValueAt(linha, 0);
+            usuario = dao.pesquisar(id);
+            dao.excluir(usuario);
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Usuário Excluído!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TelaUsuario tela = new TelaUsuario();
+        tela.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
